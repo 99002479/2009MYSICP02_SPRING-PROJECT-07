@@ -80,70 +80,7 @@ function listRoom()
 }
 
 // Result form subscribe function of listRoom is processed here
-function onListofRoom(payload)
-{
-    document.getElementById('listRoom').innerHTML = "";
 
-     var rooms = JSON.parse(payload.body);
-     for (var i=0, len = rooms.length;i<len;i++ )
-     {
-        var roomElement = document.createElement('li');
-        roomElement.classList.add('list-group-item');
-
-        var formElement = document.createElement('form');
-        formElement.setAttribute("id", "joinroom");
-
-        var textElement = document.createElement('label');
-        textElement.setAttribute("style","margin-right: 20px");
-        var roomText = document.createTextNode(rooms[i].roomid);
-        textElement.appendChild(roomText);
-
-        var buttonElement = document.createElement('button');
-        buttonElement.setAttribute("type","submit");
-        buttonElement.setAttribute("class","btn btn-primary join");
-        buttonElement.setAttribute("value",rooms[i].roomid);
-        var buttonText = document.createTextNode("Join");
-        buttonElement.appendChild(buttonText);
-
-        formElement.appendChild(textElement);
-        formElement.appendChild(buttonElement);
-
-        roomElement.appendChild(formElement);
-
-        listOfRoom.appendChild(roomElement);
-        listOfRoom.scrollTop = listOfRoom.scrollHeight;
-
-     }
-}
-
-
-//Function triggered after clicking create room
-function createRoom(event) {
-    var roomNameValue = roomName.value.trim();
-    if(roomNameValue)
-    {
-        roomPage.classList.add('hidden');
-        chatPage.classList.remove('hidden');
-        var chatRoom = {
-                    roomid: roomNameValue
-        };
-        stompClient.send("/chatapp/chat/rooms", {}, JSON.stringify(chatRoom));
-        enterRoom(roomNameValue);
-    }
-    event.preventDefault();
-}
-
-
-$(document).on('click', '.btn.btn-primary.join', function(event){
-    var roomNameValue = $(this).attr('value');
-    if(roomNameValue)
-    {
-        roomPage.classList.add('hidden');
-        chatPage.classList.remove('hidden');
-        enterRoom(roomNameValue);
-    }
-    event.preventDefault();
-});
 
 // Leave the current room and enter a new one.
 function enterRoom(newRoomId) {
