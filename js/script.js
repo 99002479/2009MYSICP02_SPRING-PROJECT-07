@@ -267,18 +267,3 @@ function getAvatarColor(messageSender) {
 
 
 
-//main function
-$(document).ready(function() {
-
-  var savedName = Cookies.get('name');
-  if (savedName) {
-    nameInput.val(savedName);
-  }
-
-
-  usernamePage.classList.remove('hidden');
-
-  usernameForm.addEventListener('submit', connect, true);
-  createRoomForm.addEventListener('submit', createRoom, true);
-  messageForm.addEventListener('submit', sendMessage, true);
-});
